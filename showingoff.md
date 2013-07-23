@@ -6,7 +6,7 @@ framework: bootstrap
 mode: selfcontained
 highlighter: prettify
 hitheme: twitter-bootstrap
-ext_widgets: {rCharts: "libraries/rickshaw"}
+ext_widgets: {rCharts: "libraries/nvd3"}
 assets:
   css:
   - "http://fonts.googleapis.com/css?family=Raleway:300"
@@ -86,21 +86,21 @@ n1
 ```
 
 
-<div id='chart24d457a7747b' class='rChart nvd3'></div>
+<div id='chart24d42644fa1' class='rChart nvd3'></div>
 <script type='text/javascript'>
  $(document).ready(function(){
-      drawchart24d457a7747b()
+      drawchart24d42644fa1()
     });
-    function drawchart24d457a7747b(){  
+    function drawchart24d42644fa1(){  
       var opts = {
- "dom": "chart24d457a7747b",
+ "dom": "chart24d42644fa1",
 "width":    600,
 "height":    400,
 "x": "date",
 "y": "value",
 "group": "variable",
 "type": "lineWithFocusChart",
-"id": "chart24d457a7747b" 
+"id": "chart24d42644fa1" 
 },
         data = [
  {
@@ -16635,7 +16635,7 @@ n1
 So you see our chart.  How did I do that?  The focus of this tutorial is primarily standalone charts, but as an aside, let's quickly look at the mechanics of this.  Using [`slidify`](http://slidify.org), we can declare the location of our library in the YAML header.
 
 ```r
-ext_widgets: {rCharts: "libraries/rickshaw"}
+ext_widgets: {rCharts: "libraries/nvd3"}
 ```
 
 This says look in the installed `rCharts` R package at location `libraries/rickshaw` for everything we need.  When we call our chart `n1`, `slidify` checks to see if `knitr` is in progress, and if so it automatically uses the `print` method from `rCharts` to provide the HTML for our chart `div`.  If instead, you would like your chart embedded in an iframe, you could do `options(rcharts.vis.tag="iframe")`.
@@ -16707,7 +16707,7 @@ Here are three examples using `make_example_pages`:
 
 
 ### Please Share
-I hope you now understand how easy sharing your rChart is.  Please share widely.
+I hope you now understand how easy sharing your rChart is.  Please share widely.  There is also a [gallery of rCharts](http://rcharts.io/site/gallery.html), and hopefully soon adding to this will be just as easy as above.
 
 ### Thanks
 Thanks to Ramnath Vaidyanathan for seemingly thinking of everything and working so hard to include it in both `slidify` and `rCharts`.

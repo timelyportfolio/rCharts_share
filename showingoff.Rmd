@@ -6,7 +6,7 @@ framework: bootstrap
 mode: selfcontained
 highlighter: prettify
 hitheme: twitter-bootstrap
-ext_widgets: {rCharts: "libraries/rickshaw"}
+ext_widgets: {rCharts: "libraries/nvd3"}
 assets:
   css:
   - "http://fonts.googleapis.com/css?family=Raleway:300"
@@ -92,7 +92,7 @@ n1
 
 So you see our chart.  How did I do that?  The focus of this tutorial is primarily standalone charts, but as an aside, let's quickly look at the mechanics of this.  Using [`slidify`](http://slidify.org), we can declare the location of our library in the YAML header.
 ```{r eval=F}
-ext_widgets: {rCharts: "libraries/rickshaw"}
+ext_widgets: {rCharts: "libraries/nvd3"}
 ```
 This says look in the installed `rCharts` R package at location `libraries/rickshaw` for everything we need.  When we call our chart `n1`, `slidify` checks to see if `knitr` is in progress, and if so it automatically uses the `print` method from `rCharts` to provide the HTML for our chart `div`.  If instead, you would like your chart embedded in an iframe, you could do `options(rcharts.vis.tag="iframe")`.
 
