@@ -90,7 +90,7 @@ n1$yAxis(tickFormat = "#!function(d) {return d3.format('0,.0')(d)}!#")
 n1
 ```
 
-So you see our chart.  How did I do that?  The focus on this tutorial is primarily standalone charts, but as an aside, let's quickly look at the mechanics of this.  Using [`slidify`](http://slidify.org), we can declare the location of our library in the YAML header.
+So you see our chart.  How did I do that?  The focus of this tutorial is primarily standalone charts, but as an aside, let's quickly look at the mechanics of this.  Using [`slidify`](http://slidify.org), we can declare the location of our library in the YAML header.
 ```{r eval=F}
 ext_widgets: {rCharts: "libraries/rickshaw"}
 ```
@@ -98,14 +98,62 @@ This says look in the installed `rCharts` R package at location `libraries/ricks
 
 - - -
 ### Showing Off - To Yourself
-Showing off to yourself can be very rewarding.  Running `n1` will by default create a temp html file (don't worry it will be removed by R when you shut down R) that will open in your default browser.  `rCharts` accomplishes this by the `show` method.  Since it is an [R5 reference class](http://stat.ethz.ch/R-manual/R-devel/library/methods/html/refClass.html), the `show` method is called automatically.   
+Showing off to yourself can be very rewarding.  Running
 
-Using `shiny` might make us really proud of ourselves.  To see our chart with `shiny` we can run `n1$show(static = F)` and avoid the creation of a temp file.  `Shiny` will start a web server, and your browser will open with our beautiful chart served by R.
+```{r eval = F}
+n1
+```
+
+will by default create a temp html file (don't worry it will be removed by R when you shut down R) that will open in your default browser.  `rCharts` accomplishes this by the `show` method.  Since it is an [R5 reference class](http://stat.ethz.ch/R-manual/R-devel/library/methods/html/refClass.html), the `show` method is called automatically.   
+
+Using [`shiny`](http://www.rstudio.com/shiny/) might make us really proud of ourselves.  To see our chart with `shiny` we can run
+
+```{r eval = F}
+n1$show(static = F)
+```
+
+and avoid the creation of a temp file.  `Shiny` will start a web server, and your browser will open with our beautiful chart served by R.
 
 - - -
 ### Showing Off - GIST & RPubs
-Showing off to an audience of one is not nearly as fun as showing off to the world  In addition to the `show` method, rCharts provides a `publish` method once you are ready for public awe or ridicule.  Currently, publish can upload your chart anonymously or with your registered name to [Gist from Github](http://gist.github.com) or [RPubs from RStudio](http://rpubs.com).  Gist is the default, so `n1$publish(description="My Beautiful NVD3 Chart")` will result in something like [this](http://rcharts.io/viewer/?6064656#.Ue7FZo3VCSo).  There are lots of Gist viewers, but the `rCharts` author Ramnath Vaidyanathan provides a viewer specifically designed for rCharts.  This allows virtually every social sharing site available (Twitter, Pinboard, Facebook, Google+, etc.) and also provides [Disqus](http://disqus.com). commenting.
+Showing off to an audience of one is not nearly as fun as showing off to the world  In addition to the `show` method, rCharts provides a `publish` method once you are ready for public awe or ridicule.  Currently, publish can upload your chart anonymously or with your registered name to [Gist from Github](http://gist.github.com) or [RPubs from RStudio](http://rpubs.com).  Gist is the default, so 
 
-RPubs is another good option for sharing your creation, but it does not offer as many built-in social media options.  However, the audience is probably all `R` users, so you'll get some love.  If we do something like `n1$publish(description = "My Beautiful rChart on RPubs", host="rpubs")`, you should get a claim page that you can turn into your own [RPub](http://rpubs.com/timelyportfolio/7192).
+```{r eval = F}
+n1$publish(description="My Beautiful NVD3 Chart")
+```
+
+will result in something like [this](http://rcharts.io/viewer/?6064656#.Ue7FZo3VCSo).  There are lots of Gist viewers, but the `rCharts` author Ramnath Vaidyanathan provides a viewer specifically designed for rCharts.  This allows virtually every social sharing site available (Twitter, Pinboard, Facebook, Google+, etc.) and also provides [Disqus](http://disqus.com). commenting.
+
+RPubs is another good option for sharing your creation, but it does not offer as many built-in social media options.  However, the audience is probably all `R` users, so you'll still get some love.  If we do something like 
+```{r eval = F}
+n1$publish(description = "My Beautiful rChart on RPubs", host="rpubs")
+```
+
+you should get a claim page that you can turn into your own [RPub](http://rpubs.com/timelyportfolio/7192).
+
+For both Gist and RPubs, `rCharts` respectfully remembers the id, so updates will update (not create) your uploaded masterpieces.
+
+### Showing Off to Reproduce
+I mentioned earlier that [rCharts viewer](https://github.com/rcharts/viewer) offers some nice features specifically designed for `rCharts`.  In the spirit of reproducibility, it is always nice to not only share our chart but also the code to create it. `rCharts` encourages this behavior by making it easy with `create_charts`.  If we save our code as an R script with .R as the extension, we can do something like this.
+                                                                                                      
+```{r eval = F}                                                                                                      
+chartExample <- create_chart('ourbeautifulchartcode.R')
+chartExample$publish( 'My Chart with Code' )
+```
+
+You will see now that our (Gist)[http://rcharts.io/viewer/?6064899] will also include our code.  This gives us extra opportunity to show off our brilliance.
+
+### Lots to Share
+At some point, we hope you build up a whole collection of examples.  The function `make_example_pages` will very likely change, but currently it will loop through all the .R scripts in the specified directory and produce a gallery of all the charts.
+
+Here are three examples using `make_example_pages`:
+- http://timelyportfolio.github.io/rCharts_dimple/gallery/
+- http://timelyportfolio.github.io/rCharts_polycharts_standalone/gallery/area_osshare.html
+- http://timelyportfolio.github.io/rCharts_lattice_book/polycharts_versions/gallery/figure1_01.html
 
 
+### Please Share
+I hope you now understand how easy sharing your rChart is.  Please share widely.
+
+### Thanks
+Thanks to Ramnath Vaidyanathan for seemingly thinking of everything and working so hard to include it in both `slidify` and `rCharts`.
