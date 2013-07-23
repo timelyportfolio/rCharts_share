@@ -86,21 +86,21 @@ n1
 ```
 
 
-<div id='chart24d451b65348' class='rChart nvd3'></div>
+<div id='chart24d457a7747b' class='rChart nvd3'></div>
 <script type='text/javascript'>
  $(document).ready(function(){
-      drawchart24d451b65348()
+      drawchart24d457a7747b()
     });
-    function drawchart24d451b65348(){  
+    function drawchart24d457a7747b(){  
       var opts = {
- "dom": "chart24d451b65348",
+ "dom": "chart24d457a7747b",
 "width":    600,
 "height":    400,
 "x": "date",
 "y": "value",
 "group": "variable",
 "type": "lineWithFocusChart",
-"id": "chart24d451b65348" 
+"id": "chart24d457a7747b" 
 },
         data = [
  {
@@ -16672,7 +16672,7 @@ n1$publish(description="My Beautiful NVD3 Chart")
 ```
 
 
-will result in something like [this](http://rcharts.io/viewer/?6064656#.Ue7FZo3VCSo).  There are lots of Gist viewers, but the `rCharts` author Ramnath Vaidyanathan provides a viewer specifically designed for rCharts.  This allows virtually every social sharing site available (Twitter, Pinboard, Facebook, Google+, etc.) and also provides [Disqus](http://disqus.com). commenting.
+will result in something like [this](http://rcharts.io/viewer/?6064656#.Ue7FZo3VCSo).  There are lots of Gist viewers, but the `rCharts` author Ramnath Vaidyanathan provides a viewer specifically designed for rCharts.  This allows virtually every social sharing site available (Twitter, Pinboard, Facebook, Google+, etc.) and also provides [Disqus](http://disqus.com) commenting.
 
 RPubs is another good option for sharing your creation, but it does not offer as many built-in social media options.  However, the audience is probably all `R` users, so you'll still get some love.  If we do something like 
 
@@ -16695,7 +16695,7 @@ chartExample$publish( 'My Chart with Code' )
 ```
 
 
-You will see now that our (Gist)[http://rcharts.io/viewer/?6064899] will also include our code.  This gives us extra opportunity to show off our brilliance.
+You will see now that our [Gist](http://rcharts.io/viewer/?6064899) will also include our code.  This gives us extra opportunity to show off our brilliance.
 
 ### Lots to Share
 At some point, we hope you build up a whole collection of examples.  The function `make_example_pages` will very likely change, but currently it will loop through all the .R scripts in the specified directory and produce a gallery of all the charts.
