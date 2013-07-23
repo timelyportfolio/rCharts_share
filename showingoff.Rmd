@@ -1,16 +1,16 @@
 ---
-  title: Sankey from Scratch
+title: Showing Off Your Beautiful rChart
 author: Timely Portfolio
 github: {user: timelyportfolio, repo: rCharts_d3_sankey, branch: "gh-pages"}
 framework: bootstrap
 mode: selfcontained
 highlighter: prettify
 hitheme: twitter-bootstrap
-widgets: "d3_sankey"
+ext_widgets: {rCharts: "libraries/rickshaw"}
 assets:
   css:
   - "http://fonts.googleapis.com/css?family=Raleway:300"
-- "http://fonts.googleapis.com/css?family=Oxygen"
+  - "http://fonts.googleapis.com/css?family=Oxygen"
 ---
   
 <style>
@@ -69,7 +69,7 @@ sp500.melt <- melt( sp500.df, id.vars = 1 )
 sp500.melt$date <- as.numeric(as.POSIXct(sp500.melt$date)) * 1000
 ```
 
-Now that we have some data, we can make a simple [NVD3](http://nvd3.org) [lineWithFocus chart](http://nvd3.org/ghpages/lineWithFocus.html) to use as our example.  
+Since we have some data, we can make a simple [NVD3](http://nvd3.org) [lineWithFocus chart](http://nvd3.org/ghpages/lineWithFocus.html) to use as our example.  **Although we are using NVD3, the sharing methods we will explore are available to all the libraries, including custom creations.**
 
 ```{r}
 #do a NVD3 lineWithFocus chart
@@ -77,7 +77,9 @@ n1 <- nPlot(
   value ~ date,
   group = "variable",
   data = sp500.melt,
-  type = "lineWithFocusChart"
+  type = "lineWithFocusChart",
+  height = 400,
+  width = 600
 )
 #set xAxis up to format dates
 n1$xAxis(tickFormat = "#!function(d) {return d3.time.format('%b %d, %Y')(new Date(d))}!#")
@@ -85,4 +87,25 @@ n1$xAxis(tickFormat = "#!function(d) {return d3.time.format('%b %d, %Y')(new Dat
 n1$x2Axis(tickFormat = "#!function(d) {return d3.time.format('%Y')(new Date(d))}!#")
 #set yAxis up to format numbers
 n1$yAxis(tickFormat = "#!function(d) {return d3.format('0,.0')(d)}!#")
+n1
 ```
+
+So you see our chart.  How did I do that?  The focus on this tutorial is primarily standalone charts, but as an aside, let's quickly look at the mechanics of this.  Using [`slidify`](http://slidify.org), we can declare the location of our library in the YAML header.
+```{r eval=F}
+ext_widgets: {rCharts: "libraries/rickshaw"}
+```
+This says look in the installed `rCharts` R package at location `libraries/rickshaw` for everything we need.  When we call our chart `n1`, `slidify` checks to see if `knitr` is in progress, and if so it automatically uses the `print` method from `rCharts` to provide the HTML for our chart `div`.  If instead, you would like your chart embedded in an iframe, you could do `options(rcharts.vis.tag="iframe")`.
+
+- - -
+### Showing Off - To Yourself
+Showing off to yourself can be very rewarding.  Running `n1` will by default create a temp html file (don't worry it will be removed by R when you shut down R) that will open in your default browser.  `rCharts` accomplishes this by the `show` method.  Since it is an [R5 reference class](http://stat.ethz.ch/R-manual/R-devel/library/methods/html/refClass.html), the `show` method is called automatically.   
+
+Using `shiny` might make us really proud of ourselves.  To see our chart with `shiny` we can run `n1$show(static = F)` and avoid the creation of a temp file.  `Shiny` will start a web server, and your browser will open with our beautiful chart served by R.
+
+- - -
+### Showing Off - GIST & RPubs
+Showing off to an audience of one is not nearly as fun as showing off to the world  In addition to the `show` method, rCharts provides a `publish` method once you are ready for public awe or ridicule.  Currently, publish can upload your chart anonymously or with your registered name to [Gist from Github](http://gist.github.com) or [RPubs from RStudio](http://rpubs.com).  Gist is the default, so `n1$publish(description="My Beautiful NVD3 Chart")` will result in something like [this](http://rcharts.io/viewer/?6064656#.Ue7FZo3VCSo).  There are lots of Gist viewers, but the `rCharts` author Ramnath Vaidyanathan provides a viewer specifically designed for rCharts.  This allows virtually every social sharing site available (Twitter, Pinboard, Facebook, Google+, etc.) and also provides [Disqus](http://disqus.com). commenting.
+
+RPubs is another good option for sharing your creation, but it does not offer as many built-in social media options.  However, the audience is probably all `R` users, so you'll get some love.  If we do something like `n1$publish(description = "My Beautiful rChart on RPubs", host="rpubs")`, you should get a claim page that you can turn into your own [RPub](http://rpubs.com/timelyportfolio/7192).
+
+
