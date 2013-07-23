@@ -153,7 +153,7 @@ Here are three examples using `make_example_pages`:
 
 
 ### Please Share
-I hope you now understand how easy sharing your rChart is.  Please share widely.
+I hope you now understand how easy sharing your rChart is.  Please share widely.  There is also a [gallery of rCharts](http://rcharts.io/site/gallery.html), and hopefully soon adding to this will be just as easy as above.
 
 ### Thanks
 Thanks to Ramnath Vaidyanathan for seemingly thinking of everything and working so hard to include it in both `slidify` and `rCharts`.
