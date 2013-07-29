@@ -88,7 +88,12 @@ require(rCharts)
 
 #get sp500 prices from Yahoo! Finance
 sp500 &lt;- getSymbols(&quot;^GSPC&quot;, auto.assign = FALSE)
-#add 200 day moving average
+</code></pre>
+
+<pre><code>## Warning: downloaded length 101474 != reported length 200
+</code></pre>
+
+<pre><code class="r">#add 200 day moving average
 sp500$ma &lt;- runMean( sp500[,4], n = 200)
 #get date, close, and 200day mov avg as a data.frame
 sp500.df &lt;- data.frame(index(sp500),coredata(sp500)[,c(4,7)])
@@ -119,22 +124,33 @@ n1$yAxis(tickFormat = &quot;#!function(d) {return d3.format(&#39;0,.0&#39;)(d)}!
 n1
 </code></pre>
 
-<div id='chart24d42644fa1' class='rChart nvd3'></div>
+<iframe src=assets/fig/unnamed-chunk-3.html seamless></iframe>
+
+<p>So you see our chart.  How did I do that?  The focus of this tutorial is primarily standalone charts, but as an aside, let&#39;s quickly look at the mechanics of this.  Since <a href="http://slidify.org"><code>slidify</code></a> shares the same author as <code>rCharts</code>, it very intelligently handles our rChart.  When we call our chart <code>n1</code>, <code>slidify</code> checks to see if <code>knitr</code> is in progress, and if so it automatically uses the <code>show(mode_=&#39;iframe&#39;)</code> method from <code>rCharts</code> to save a standalone HTML for our chart and then include an <code>&lt;iframe&gt;</code> container in our main document to point to our chart.  <code>slidify</code> expects that we might be including multiple rCharts, so it prefers an <code>&lt;iframe&gt;</code>to help prevent conflict between multiple rCharts and speed loading time for our presentation.</p>
+
+<p>If instead, you would like your chart to be shown inline, you could do <code>n1$show(&quot;inline&quot;)</code> as below.</p>
+
+<pre><code class="r">n1$show(&quot;inline&quot;)
+</code></pre>
+
+<pre><code>  &lt;div id = &#39;chart198828d67aa9&#39; class = &#39;rChart nvd3&#39;&gt;
+  &lt;/div&gt;
+</code></pre>
 
 <script type='text/javascript'>
  $(document).ready(function(){
-      drawchart24d42644fa1()
+      drawchart198828d67aa9()
     });
-    function drawchart24d42644fa1(){  
+    function drawchart198828d67aa9(){  
       var opts = {
- "dom": "chart24d42644fa1",
+ "dom": "chart198828d67aa9",
 "width":    600,
 "height":    400,
 "x": "date",
 "y": "value",
 "group": "variable",
 "type": "lineWithFocusChart",
-"id": "chart24d42644fa1" 
+"id": "chart198828d67aa9" 
 },
         data = [
  {
@@ -8383,6 +8399,26 @@ n1
 "value": 1695.5 
 },
 {
+ "date": 1.3745e+12,
+"variable": "close",
+"value": 1692.4 
+},
+{
+ "date": 1.3746e+12,
+"variable": "close",
+"value": 1685.9 
+},
+{
+ "date": 1.3747e+12,
+"variable": "close",
+"value": 1690.2 
+},
+{
+ "date": 1.3748e+12,
+"variable": "close",
+"value": 1691.7 
+},
+{
  "date": 1.1678e+12,
 "variable": "200dMovAvg",
 "value": null 
@@ -16626,6 +16662,26 @@ n1
  "date": 1.3745e+12,
 "variable": "200dMovAvg",
 "value": 1526.1 
+},
+{
+ "date": 1.3745e+12,
+"variable": "200dMovAvg",
+"value": 1527.3 
+},
+{
+ "date": 1.3746e+12,
+"variable": "200dMovAvg",
+"value": 1528.5 
+},
+{
+ "date": 1.3747e+12,
+"variable": "200dMovAvg",
+"value": 1529.7 
+},
+{
+ "date": 1.3748e+12,
+"variable": "200dMovAvg",
+"value": 1530.8 
 } 
 ]
   
@@ -16664,13 +16720,6 @@ n1
       });
     };
 </script>
-
-<p>So you see our chart.  How did I do that?  The focus of this tutorial is primarily standalone charts, but as an aside, let&#39;s quickly look at the mechanics of this.  Using <a href="http://slidify.org"><code>slidify</code></a>, we can declare the location of our library in the YAML header.</p>
-
-<pre><code class="r">ext_widgets: {rCharts: &quot;libraries/nvd3&quot;}
-</code></pre>
-
-<p>This says look in the installed <code>rCharts</code> R package at location <code>libraries/rickshaw</code> for everything we need.  When we call our chart <code>n1</code>, <code>slidify</code> checks to see if <code>knitr</code> is in progress, and if so it automatically uses the <code>print</code> method from <code>rCharts</code> to provide the HTML for our chart <code>div</code>.  If instead, you would like your chart embedded in an iframe, you could do <code>options(rcharts.vis.tag=&quot;iframe&quot;)</code>.</p>
 
 <hr>
 

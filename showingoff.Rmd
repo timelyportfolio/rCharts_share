@@ -6,7 +6,6 @@ framework: bootstrap
 mode: selfcontained
 highlighter: prettify
 hitheme: twitter-bootstrap
-ext_widgets: {rCharts: "libraries/nvd3"}
 assets:
   css:
   - "http://fonts.googleapis.com/css?family=Raleway:300"
@@ -40,9 +39,9 @@ assets:
   
   ```{r echo=F, warning= F, message=F}
 opts_chunk$set(
-  message = FALSE,
-  warning = FALSE,
-  error = FALSE,
+  message = TRUE,
+  warning = TRUE,
+  error = TRUE,
   tidy = FALSE,
   cache = FALSE,
   results = 'asis'
@@ -90,11 +89,13 @@ n1$yAxis(tickFormat = "#!function(d) {return d3.format('0,.0')(d)}!#")
 n1
 ```
 
-So you see our chart.  How did I do that?  The focus of this tutorial is primarily standalone charts, but as an aside, let's quickly look at the mechanics of this.  Using [`slidify`](http://slidify.org), we can declare the location of our library in the YAML header.
-```{r eval=F}
-ext_widgets: {rCharts: "libraries/nvd3"}
+So you see our chart.  How did I do that?  The focus of this tutorial is primarily standalone charts, but as an aside, let's quickly look at the mechanics of this.  Since [`slidify`](http://slidify.org) shares the same author as `rCharts`, it very intelligently handles our rChart.  When we call our chart `n1`, `slidify` checks to see if `knitr` is in progress, and if so it automatically uses the `show(mode_='iframe')` method from `rCharts` to save a standalone HTML for our chart and then include an `<iframe>` container in our main document to point to our chart.  `slidify` expects that we might be including multiple rCharts, so it prefers an `<iframe>`to help prevent conflict between multiple rCharts and speed loading time for our presentation.
+
+If instead, you would like your chart to be shown inline, you could do `n1$show("inline")` as below.
+
+```{r results = "asis"}
+n1$show("inline")
 ```
-This says look in the installed `rCharts` R package at location `libraries/rickshaw` for everything we need.  When we call our chart `n1`, `slidify` checks to see if `knitr` is in progress, and if so it automatically uses the `print` method from `rCharts` to provide the HTML for our chart `div`.  If instead, you would like your chart embedded in an iframe, you could do `options(rcharts.vis.tag="iframe")`.
 
 - - -
 ### Showing Off - To Yourself
