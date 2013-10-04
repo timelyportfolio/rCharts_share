@@ -40,24 +40,18 @@ opts_chunk$set(
 )
 ```
 
-Just like making [`rCharts`](http://rcharts.io/site) is [easy](http://ramnathv.github.io/rCharts/), showing off your beautiful creation is also super simple with lots of built in options.  We will look at each of these options and provide examples.  First let's grab some data.  For this example, we will get daily S&P 500 prices from [Yahoo! Finance](http://finance.yahoo.com/q?s=%5EGSPC) using `getSymbols` and then use `runMean` to calculate a 200 day simple moving average.
+Just like making [`rCharts`](http://rcharts.io/site) is [easy](http://ramnathv.github.io/rCharts/), showing off your beautiful creation is also super simple with lots of built in options.  We will look at each of these options and provide examples.  First let's grab some data using the `economics` dataset provided with `ggplot2`.
 
 ```{r}
-require(quantmod)
 require(reshape2)
 require(rCharts)
 
-#get sp500 prices from Yahoo! Finance
-sp500 <- getSymbols("^GSPC", auto.assign = FALSE, from = "2010-12-31")
-#add 200 day moving average
-sp500$ma <- runMean( sp500[,4], n = 200)
-#get date, close, and 200day mov avg as a data.frame
-sp500.df <- data.frame(index(sp500),coredata(sp500)[,c(4,7)])
-colnames(sp500.df) <- c("date","close","200dMovAvg")
-#melt to long format
-sp500.melt <- melt( sp500.df, id.vars = 1 )
-#get dates to a javascript favorite format
-sp500.melt$date <- as.numeric(as.POSIXct(sp500.melt$date)) * 1000
+#get economics data from ggplot2
+data(economics, package="ggplot2")
+#melt the economics data to get in long form
+economics.melt <- reshape2::melt(economics[,c(1,4,5)],id.vars=1)
+#one way to transform the date to work well with nvd3
+economics.melt$date <- as.numeric(as.POSIXct(economics$date)) * 1000
 ```
 
 Since we have some data, we can make a simple [NVD3](http://nvd3.org) [lineWithFocus chart](http://nvd3.org/ghpages/lineWithFocus.html) to use as our example.  **Although we are using NVD3, the sharing methods we will explore are available to all the libraries, including custom creations.**
@@ -67,7 +61,7 @@ Since we have some data, we can make a simple [NVD3](http://nvd3.org) [lineWithF
 n1 <- nPlot(
   value ~ date,
   group = "variable",
-  data = sp500.melt,
+  data = economics.melt,
   type = "lineWithFocusChart",
   height = 400,
   width = 600
