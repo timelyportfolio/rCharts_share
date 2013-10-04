@@ -91,7 +91,14 @@ n1$yAxis(tickFormat = "#!function(d) {return d3.format('0,.0')(d)}!#")
 n1
 ```
 
-<iframe src=assets/fig/unnamed-chunk-3.html seamless></iframe>
+```
+## Warning: cannot open file 'assets/fig/unnamed-chunk-3.html': No such file
+## or directory
+```
+
+```
+## Error: cannot open the connection
+```
 
 
 So you see our chart.  How did I do that?  The focus of this tutorial is primarily standalone charts, but as an aside, let's quickly look at the mechanics of this.  Since [`slidify`](http://slidify.org) shares the same author as `rCharts`, it very intelligently handles our rChart.  When we call our chart `n1`, `slidify` checks to see if `knitr` is in progress, and if so it automatically uses the `show(mode_='iframe')` method from `rCharts` to save a standalone HTML for our chart and then include an `<iframe>` container in our main document to point to our chart.  `slidify` expects that we might be including multiple rCharts, so it prefers an `<iframe>`to help prevent conflict between multiple rCharts and speed loading time for our presentation.
@@ -103,22 +110,22 @@ If instead, you would like your chart to be shown inline, you could do `n1$show(
 n1$show("inline")
 ```
 
-      <div id = 'chart198828d67aa9' class = 'rChart nvd3'>
-      </div>
+
+<div id = 'chart19883eb85fe9' class = 'rChart nvd3'></div>
 <script type='text/javascript'>
  $(document).ready(function(){
-      drawchart198828d67aa9()
+      drawchart19883eb85fe9()
     });
-    function drawchart198828d67aa9(){  
+    function drawchart19883eb85fe9(){  
       var opts = {
- "dom": "chart198828d67aa9",
+ "dom": "chart19883eb85fe9",
 "width":    600,
 "height":    400,
 "x": "date",
 "y": "value",
 "group": "variable",
 "type": "lineWithFocusChart",
-"id": "chart198828d67aa9" 
+"id": "chart19883eb85fe9" 
 },
         data = [
  {

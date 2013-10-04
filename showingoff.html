@@ -124,7 +124,12 @@ n1$yAxis(tickFormat = &quot;#!function(d) {return d3.format(&#39;0,.0&#39;)(d)}!
 n1
 </code></pre>
 
-<iframe src=assets/fig/unnamed-chunk-3.html seamless></iframe>
+<pre><code>## Warning: cannot open file &#39;assets/fig/unnamed-chunk-3.html&#39;: No such file
+## or directory
+</code></pre>
+
+<pre><code>## Error: cannot open the connection
+</code></pre>
 
 <p>So you see our chart.  How did I do that?  The focus of this tutorial is primarily standalone charts, but as an aside, let&#39;s quickly look at the mechanics of this.  Since <a href="http://slidify.org"><code>slidify</code></a> shares the same author as <code>rCharts</code>, it very intelligently handles our rChart.  When we call our chart <code>n1</code>, <code>slidify</code> checks to see if <code>knitr</code> is in progress, and if so it automatically uses the <code>show(mode_=&#39;iframe&#39;)</code> method from <code>rCharts</code> to save a standalone HTML for our chart and then include an <code>&lt;iframe&gt;</code> container in our main document to point to our chart.  <code>slidify</code> expects that we might be including multiple rCharts, so it prefers an <code>&lt;iframe&gt;</code>to help prevent conflict between multiple rCharts and speed loading time for our presentation.</p>
 
@@ -133,24 +138,22 @@ n1
 <pre><code class="r">n1$show(&quot;inline&quot;)
 </code></pre>
 
-<pre><code>  &lt;div id = &#39;chart198828d67aa9&#39; class = &#39;rChart nvd3&#39;&gt;
-  &lt;/div&gt;
-</code></pre>
+<div id = 'chart19883eb85fe9' class = 'rChart nvd3'></div>
 
 <script type='text/javascript'>
  $(document).ready(function(){
-      drawchart198828d67aa9()
+      drawchart19883eb85fe9()
     });
-    function drawchart198828d67aa9(){  
+    function drawchart19883eb85fe9(){  
       var opts = {
- "dom": "chart198828d67aa9",
+ "dom": "chart19883eb85fe9",
 "width":    600,
 "height":    400,
 "x": "date",
 "y": "value",
 "group": "variable",
 "type": "lineWithFocusChart",
-"id": "chart198828d67aa9" 
+"id": "chart19883eb85fe9" 
 },
         data = [
  {
