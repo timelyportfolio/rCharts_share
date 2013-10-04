@@ -54,10 +54,10 @@ economics.melt <- reshape2::melt(economics[,c(1,4,5)],id.vars=1)
 economics.melt$date <- as.numeric(as.POSIXct(economics$date)) * 1000
 ```
 
-Since we have some data, we can make a simple [NVD3](http://nvd3.org) [lineWithFocus chart](http://nvd3.org/ghpages/lineWithFocus.html) to use as our example.  **Although we are using NVD3, the sharing methods we will explore are available to all the libraries, including custom creations.**
+Since we have some data, we can make a simple [NVD3](http://nvd3.org) [line chart](http://nvd3.org/ghpages/line.html) to use as our example.  **Although we are using NVD3, the sharing methods we will explore are available to all the libraries, including custom creations.**
 
 ```{r}
-#do a NVD3 lineWithFocus chart
+#do a NVD3 line chart
 n1 <- nPlot(
   value ~ date,
   group = "variable",
