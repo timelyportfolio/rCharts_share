@@ -62,25 +62,19 @@ n1 <- nPlot(
   value ~ date,
   group = "variable",
   data = economics.melt,
-  type = "lineWithFocusChart",
+  type = "lineChart",
   height = 400,
   width = 600
 )
 #set xAxis up to format dates
 n1$xAxis(
-  tickFormat = "#!function(d) {return d3.time.format('%b %d, %Y')(new Date(d))}!#")
-#xAxis auto sets x2Axis, but I like a different format for x2Axis
-n1$x2Axis(
   tickFormat = "#!function(d) {return d3.time.format('%Y')(new Date(d))}!#")
-#set yAxis up to format numbers
-n1$yAxis(
-  tickFormat = "#!function(d) {return d3.format('0,.0')(d)}!#")
 n1
 ```
 
 So you see our chart.  How did I do that?  The focus of this tutorial is primarily standalone charts, but as an aside, let's quickly look at the mechanics of this.  Since [`slidify`](http://slidify.org) shares the same author as `rCharts`, it very intelligently handles our rChart.  When we call our chart `n1`, `slidify` checks to see if `knitr` is in progress, and if so it automatically uses the `show(mode_='iframe')` method from `rCharts` to save a standalone HTML for our chart and then include an `<iframe>` container in our main document to point to our chart.  `slidify` expects that we might be including multiple rCharts, so it prefers an `<iframe>`to help prevent conflict between multiple rCharts and speed loading time for our presentation.
 
-If instead, you would like your chart to be shown inline, you could do `n1$show("inline")` as below.
+If instead, you would like your chart to be shown inline, you could do `n1$show("inline")` as below.  You might notice that this chart looks different than the `<iframe>` version above since the `inline` version will inherit css/styling.  For nvd3, this includes the tooltip.
 
 ```{r results = "asis"}
 n1$show("inline")
