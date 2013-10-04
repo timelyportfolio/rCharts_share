@@ -1,29 +1,139 @@
-<!doctype HTML>
-<meta charset = 'utf-8'>
+<!doctype html>
 <html>
   <head>
-    <link rel='stylesheet' href='http://nvd3.org/src/nv.d3.css'>
-    
-    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js' type='text/javascript'></script>
-    <script src='http://d3js.org/d3.v2.min.js' type='text/javascript'></script>
-    <script src='http://nvd3.org/nv.d3.js' type='text/javascript'></script>
-    <script src='http://nvd3.org/lib/fisheye.js' type='text/javascript'></script>
-    
-    <style>
-    .rChart {
-      display: block;
-      margin-left: auto; 
-      margin-right: auto;
-      width: 600px;
-      height: 400px;
-    }  
-    </style>
-    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>rCharts - Showing Off</title>
+    <link rel="stylesheet" href="libraries/frameworks/minimal/stylesheets/styles.css">
+    <link rel="stylesheet" href="libraries/highlighters/prettify/css/twitter-bootstrap.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+        <link rel=stylesheet href="libraries/widgets/nvd3/css/nv.d3.css"></link>
+<link rel=stylesheet href="libraries/widgets/nvd3/css/rNVD3.css"></link>
+<link rel=stylesheet href="./assets/css/app.css"></link>
+<link rel=stylesheet href="./assets/css/gh-buttons.css"></link>
+<link rel=stylesheet href="./assets/css/ribbons.css"></link>
+<link rel=stylesheet href="http://fonts.googleapis.com/css?family=PT+Sans"></link>
+<link rel=stylesheet href="http://odyniec.net/articles/turning-lists-into-trees/css/tree.css"></link>
+
+    <script src="libraries/widgets/nvd3/js/jquery-1.8.2.min.js"></script>
+<script src="libraries/widgets/nvd3/js/d3.v3.min.js"></script>
+<script src="libraries/widgets/nvd3/js/nv.d3.min-new.js"></script>
+<script src="libraries/widgets/nvd3/js/fisheye.js"></script>
+
   </head>
   <body>
-    <div id='chart6142f656ff8' class='rChart nvd3'></div>  
-    
-    <script type='text/javascript'>
+    <div class="wrapper">
+<header>
+  <h1>
+    <img src="http://ramnathv.github.io/rCharts/libraries/frameworks/minimal/images/rCharts.png">
+  </h1>
+  <p></p>
+  
+  <!-- <img width='150px' src='assets/img/'></img>
+  -->
+  <p class="view">
+    <!-- <a href="http://github.com/timelyportfolio/rCharts_share">
+     View the Project on GitHub <small>timelyportfolio/rCharts_share</small>
+    </a>
+    <img width='150px' src='assets/img/'></img>
+    -->
+  </p>
+  <ul class='buttons'>
+    <li><a href="https://github.com/timelyportfolio/rCharts_share/zipball/gh-pages">
+      Download <strong>ZIP File</strong>
+    </a></li>
+    <li><a href="https://github.com/timelyportfolio/rCharts_share/tarball/gh-pages">
+      Download <strong>TAR Ball</strong>
+    </a></li>
+    <li><a href="http://github.com/timelyportfolio/rCharts_share">
+      Fork On <strong>GitHub</strong></a>
+    </li>
+  </ul>
+    <ol>
+    </ol>
+  <p><a href='http://rcharts.io'>rCharts</a> is an R package, that helps create, customize and share interactive javascript visualizations from R, using a familiar lattice-like interface. You can install it from <a href='http://ramnathv.github.io/rCharts'>github</a>
+  </p>
+</header>
+
+      <section>
+        <h1>Showing Off Your Beautiful rChart</h1>
+<!-- AddThis Smart Layers BEGIN -->
+
+<!-- Go to http://www.addthis.com/get/smart-layers to customize -->
+
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4fdfcfd4773d48d3"></script>
+
+<script type="text/javascript">
+  addthis.layers({
+    'theme' : 'transparent',
+    'share' : {
+      'position' : 'left',
+      'numPreferredServices' : 5
+    }   
+  });
+</script>
+
+<!-- AddThis Smart Layers END -->
+
+<p>Just like making <a href="http://rcharts.io/site"><code>rCharts</code></a> is <a href="http://ramnathv.github.io/rCharts/">easy</a>, showing off your beautiful creation is also super simple with lots of built in options.  We will look at each of these options and provide examples.  First let&#39;s grab some data.  For this example, we will get daily S&amp;P 500 prices from <a href="http://finance.yahoo.com/q?s=%5EGSPC">Yahoo! Finance</a> using <code>getSymbols</code> and then use <code>runMean</code> to calculate a 200 day simple moving average.</p>
+
+<pre><code class="r">require(quantmod)
+require(reshape2)
+require(rCharts)
+
+#get sp500 prices from Yahoo! Finance
+sp500 &lt;- getSymbols(&quot;^GSPC&quot;, auto.assign = FALSE)
+</code></pre>
+
+<pre><code>## Warning: downloaded length 104450 != reported length 200
+</code></pre>
+
+<pre><code class="r">#add 200 day moving average
+sp500$ma &lt;- runMean( sp500[,4], n = 200)
+#get date, close, and 200day mov avg as a data.frame
+sp500.df &lt;- data.frame(index(sp500),coredata(sp500)[,c(4,7)])
+colnames(sp500.df) &lt;- c(&quot;date&quot;,&quot;close&quot;,&quot;200dMovAvg&quot;)
+#melt to long format
+sp500.melt &lt;- melt( sp500.df, id.vars = 1 )
+#get dates to a javascript favorite format
+sp500.melt$date &lt;- as.numeric(as.POSIXct(sp500.melt$date)) * 1000
+</code></pre>
+
+<p>Since we have some data, we can make a simple <a href="http://nvd3.org">NVD3</a> <a href="http://nvd3.org/ghpages/lineWithFocus.html">lineWithFocus chart</a> to use as our example.  <strong>Although we are using NVD3, the sharing methods we will explore are available to all the libraries, including custom creations.</strong></p>
+
+<pre><code class="r">#do a NVD3 lineWithFocus chart
+n1 &lt;- nPlot(
+  value ~ date,
+  group = &quot;variable&quot;,
+  data = sp500.melt,
+  type = &quot;lineWithFocusChart&quot;,
+  height = 400,
+  width = 600
+)
+#set xAxis up to format dates
+n1$xAxis(tickFormat = &quot;#!function(d) {return d3.time.format(&#39;%b %d, %Y&#39;)(new Date(d))}!#&quot;)
+#xAxis auto sets x2Axis, but I like a different format for x2Axis
+n1$x2Axis(tickFormat = &quot;#!function(d) {return d3.time.format(&#39;%Y&#39;)(new Date(d))}!#&quot;)
+#set yAxis up to format numbers
+n1$yAxis(tickFormat = &quot;#!function(d) {return d3.format(&#39;0,.0&#39;)(d)}!#&quot;)
+n1
+</code></pre>
+
+<iframe src=assets/fig/unnamed-chunk-3.html seamless></iframe>
+
+<p>So you see our chart.  How did I do that?  The focus of this tutorial is primarily standalone charts, but as an aside, let&#39;s quickly look at the mechanics of this.  Since <a href="http://slidify.org"><code>slidify</code></a> shares the same author as <code>rCharts</code>, it very intelligently handles our rChart.  When we call our chart <code>n1</code>, <code>slidify</code> checks to see if <code>knitr</code> is in progress, and if so it automatically uses the <code>show(mode_=&#39;iframe&#39;)</code> method from <code>rCharts</code> to save a standalone HTML for our chart and then include an <code>&lt;iframe&gt;</code> container in our main document to point to our chart.  <code>slidify</code> expects that we might be including multiple rCharts, so it prefers an <code>&lt;iframe&gt;</code>to help prevent conflict between multiple rCharts and speed loading time for our presentation.</p>
+
+<p>If instead, you would like your chart to be shown inline, you could do <code>n1$show(&quot;inline&quot;)</code> as below.</p>
+
+<pre><code class="r">n1$show(&quot;inline&quot;)
+</code></pre>
+
+<div id = 'chart6142f656ff8' class = 'rChart nvd3'></div>
+
+<script type='text/javascript'>
  $(document).ready(function(){
       drawchart6142f656ff8()
     });
@@ -79,6 +189,112 @@
       });
     };
 </script>
-    
+
+<hr>
+
+<h3>Showing Off - To Yourself</h3>
+
+<p>Showing off to yourself can be very rewarding.  Running</p>
+
+<pre><code class="r">n1
+</code></pre>
+
+<p>will by default create a temp html file (don&#39;t worry it will be removed by R when you shut down R) that will open in your default browser.  <code>rCharts</code> accomplishes this by the <code>show</code> method.  Since it is an <a href="http://stat.ethz.ch/R-manual/R-devel/library/methods/html/refClass.html">R5 reference class</a>, the <code>show</code> method is called automatically.   </p>
+
+<p>Using <a href="http://www.rstudio.com/shiny/"><code>shiny</code></a> might make us really proud of ourselves.  To see our chart with <code>shiny</code> we can run</p>
+
+<pre><code class="r">n1$show(static = F)
+</code></pre>
+
+<p>and avoid the creation of a temp file.  <code>Shiny</code> will start a web server, and your browser will open with our beautiful chart served by R.</p>
+
+<hr>
+
+<h3>Showing Off - GIST &amp; RPubs</h3>
+
+<p>Showing off to an audience of one is not nearly as fun as showing off to the world  In addition to the <code>show</code> method, rCharts provides a <code>publish</code> method once you are ready for public awe or ridicule.  Currently, publish can upload your chart anonymously or with your registered name to <a href="http://gist.github.com">Gist from Github</a> or <a href="http://rpubs.com">RPubs from RStudio</a>.  Gist is the default, so </p>
+
+<pre><code class="r">n1$publish(description=&quot;My Beautiful NVD3 Chart&quot;)
+</code></pre>
+
+<p>will result in something like <a href="http://rcharts.io/viewer/?6064656#.Ue7FZo3VCSo">this</a>.  There are lots of Gist viewers, but the <code>rCharts</code> author Ramnath Vaidyanathan provides a viewer specifically designed for rCharts.  This allows virtually every social sharing site available (Twitter, Pinboard, Facebook, Google+, etc.) and also provides <a href="http://disqus.com">Disqus</a> commenting.</p>
+
+<p>RPubs is another good option for sharing your creation, but it does not offer as many built-in social media options.  However, the audience is probably all <code>R</code> users, so you&#39;ll still get some love.  If we do something like </p>
+
+<pre><code class="r">n1$publish(description = &quot;My Beautiful rChart on RPubs&quot;, host=&quot;rpubs&quot;)
+</code></pre>
+
+<p>you should get a claim page that you can turn into your own <a href="http://rpubs.com/timelyportfolio/7192">RPub</a>.</p>
+
+<p>For both Gist and RPubs, <code>rCharts</code> respectfully remembers the id, so updates will update (not create) your uploaded masterpieces.</p>
+
+<h3>Showing Off to Reproduce</h3>
+
+<p>I mentioned earlier that <a href="https://github.com/rcharts/viewer">rCharts viewer</a> offers some nice features specifically designed for <code>rCharts</code>.  In the spirit of reproducibility, it is always nice to not only share our chart but also the code to create it. <code>rCharts</code> encourages this behavior by making it easy with <code>create_charts</code>.  If we save our code as an R script with .R as the extension, we can do something like this.</p>
+
+<pre><code class="r">chartExample &lt;- create_chart(&#39;ourbeautifulchartcode.R&#39;)
+chartExample$publish( &#39;My Chart with Code&#39; )
+</code></pre>
+
+<p>You will see now that our <a href="http://rcharts.io/viewer/?6064899">Gist</a> will also include our code.  This gives us extra opportunity to show off our brilliance.</p>
+
+<h3>Lots to Share</h3>
+
+<p>At some point, we hope you build up a whole collection of examples.  The function <code>make_example_pages</code> will very likely change, but currently it will loop through all the .R scripts in the specified directory and produce a gallery of all the charts.</p>
+
+<p>Here are three examples using <code>make_example_pages</code>:</p>
+
+<ul>
+<li><a href="http://timelyportfolio.github.io/rCharts_dimple/gallery/">http://timelyportfolio.github.io/rCharts_dimple/gallery/</a></li>
+<li><a href="http://timelyportfolio.github.io/rCharts_polycharts_standalone/gallery/area_osshare.html">http://timelyportfolio.github.io/rCharts_polycharts_standalone/gallery/area_osshare.html</a></li>
+<li><a href="http://timelyportfolio.github.io/rCharts_lattice_book/polycharts_versions/gallery/figure1_01.html">http://timelyportfolio.github.io/rCharts_lattice_book/polycharts_versions/gallery/figure1_01.html</a></li>
+</ul>
+
+<h3>Please Share</h3>
+
+<p>I hope you now understand how easy sharing your rChart is.  Please share widely.  There is also a <a href="http://rcharts.io/site/gallery.html">gallery of rCharts</a>, and hopefully soon adding to this will be just as easy as above.</p>
+
+<h3>Thanks</h3>
+
+<p>Thanks to Ramnath Vaidyanathan for seemingly thinking of everything and working so hard to include it in both <code>slidify</code> and <code>rCharts</code>.</p>
+
+<div id='disqus_thread'></div>
+
+      </section>
+      <footer>
+        <p>Maintained by <a href="http://github.com/timelyportfolio">
+          TimelyPortfolio
+        </a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by 
+          <a href="https://github.com/orderedlist">orderedlist</a></small>
+        </p>
+      </footer>    </div>
+    <script src="libraries/frameworks/minimal/javascripts/scale.fix.js"></script>
   </body>
-</html>
+  <!-- Load Javascripts for Widgets -->
+  
+  <script type="text/javascript">
+    var disqus_shortname = 'rcharts';
+    (function() {
+      var dsq = document.createElement('script'); 
+      dsq.type = 'text/javascript'; 
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  
+  <!-- Google Prettify -->
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js"></script>
+  <script src='libraries/highlighters/prettify/js/lang-r.js'></script>
+  <script>
+    var pres = document.getElementsByTagName("pre");
+    for (var i=0; i < pres.length; ++i) {
+      pres[i].className = "prettyprint linenums";
+    }
+    prettyPrint();
+  </script>
+  <!-- End Google Prettify --> 
+  </html>

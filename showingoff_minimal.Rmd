@@ -1,43 +1,36 @@
 ---
-title: Showing Off Your Beautiful rChart
-author: Timely Portfolio
-github: {user: timelyportfolio, repo: rCharts_d3_sankey, branch: "gh-pages"}
-framework: bootstrap
-mode: selfcontained
-highlighter: prettify
-hitheme: twitter-bootstrap
+title: rCharts - Showing Off
+author: TimelyPortfolio
+github: {user: timelyportfolio, repo: rCharts_share, branch: "gh-pages"}
+framework   : minimal
+highlighter : prettify
+hitheme     : twitter-bootstrap
+mode        : selfcontained
+widgets     : [disqus]
 assets:
-  css:
-  - "http://fonts.googleapis.com/css?family=Raleway:300"
-  - "http://fonts.googleapis.com/css?family=Oxygen"
+  css: 
+    - "http://fonts.googleapis.com/css?family=PT+Sans"
+    - "http://odyniec.net/articles/turning-lists-into-trees/css/tree.css"
 ---
-  
-<style>
-  .container { width: 1000px; }
 
-  body{
-    font-family: 'Oxygen', sans-serif;
-    font-size: 16px;
-    line-height: 24px;
-  }
+# Showing Off Your Beautiful rChart
   
-  h1,h2,h3,h4 {
-    font-family: 'Raleway', sans-serif;
-  }
-  
-  h3 {
-    background-color: #D4DAEC;
-      text-indent: 100px; 
-  }
-  
-  h4 {
-    text-indent: 100px;
-}
-</style>
-  
-  <a href="https://github.com/timelyportfolio/rCharts_share"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
-  
-  ```{r echo=F, warning= F, message=F}
+<!-- AddThis Smart Layers BEGIN -->
+<!-- Go to http://www.addthis.com/get/smart-layers to customize -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4fdfcfd4773d48d3"></script>
+<script type="text/javascript">
+  addthis.layers({
+    'theme' : 'transparent',
+    'share' : {
+      'position' : 'left',
+      'numPreferredServices' : 5
+    }   
+  });
+</script>
+<!-- AddThis Smart Layers END -->
+
+
+```{r echo=F, warning= F, message=F, cache = F}
 opts_chunk$set(
   message = TRUE,
   warning = TRUE,
@@ -47,7 +40,7 @@ opts_chunk$set(
   results = 'asis'
 )
 ```
-# Showing Off Your Beautiful rChart
+
 Just like making [`rCharts`](http://rcharts.io/site) is [easy](http://ramnathv.github.io/rCharts/), showing off your beautiful creation is also super simple with lots of built in options.  We will look at each of these options and provide examples.  First let's grab some data.  For this example, we will get daily S&P 500 prices from [Yahoo! Finance](http://finance.yahoo.com/q?s=%5EGSPC) using `getSymbols` and then use `runMean` to calculate a 200 day simple moving average.
 
 ```{r}
@@ -81,11 +74,14 @@ n1 <- nPlot(
   width = 600
 )
 #set xAxis up to format dates
-n1$xAxis(tickFormat = "#!function(d) {return d3.time.format('%b %d, %Y')(new Date(d))}!#")
+n1$xAxis(
+  tickFormat = "#!function(d) {return d3.time.format('%b %d, %Y')(new Date(d))}!#")
 #xAxis auto sets x2Axis, but I like a different format for x2Axis
-n1$x2Axis(tickFormat = "#!function(d) {return d3.time.format('%Y')(new Date(d))}!#")
+n1$x2Axis(
+  tickFormat = "#!function(d) {return d3.time.format('%Y')(new Date(d))}!#")
 #set yAxis up to format numbers
-n1$yAxis(tickFormat = "#!function(d) {return d3.format('0,.0')(d)}!#")
+n1$yAxis(
+  tickFormat = "#!function(d) {return d3.format('0,.0')(d)}!#")
 n1
 ```
 
@@ -158,3 +154,6 @@ I hope you now understand how easy sharing your rChart is.  Please share widely.
 
 ### Thanks
 Thanks to Ramnath Vaidyanathan for seemingly thinking of everything and working so hard to include it in both `slidify` and `rCharts`.
+
+
+<div id='disqus_thread'></div>
