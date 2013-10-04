@@ -1,7 +1,7 @@
 ---
 title: rCharts - Showing Off
 author: TimelyPortfolio
-github: {user: timelyportfolio, repo: rCharts_share, branch: "gh-pages"}
+github: {user: timelyportfolio, repo: rCharts_share, branch: gh-pages}
 framework   : minimal
 highlighter : prettify
 hitheme     : twitter-bootstrap
@@ -10,7 +10,6 @@ widgets     : [disqus]
 assets:
   css: 
     - "http://fonts.googleapis.com/css?family=PT+Sans"
-    - "http://odyniec.net/articles/turning-lists-into-trees/css/tree.css"
 ---
 
 # Showing Off Your Beautiful rChart
@@ -32,9 +31,9 @@ assets:
 
 ```{r echo=F, warning= F, message=F, cache = F}
 opts_chunk$set(
-  message = TRUE,
-  warning = TRUE,
-  error = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  error = FALSE,
   tidy = FALSE,
   cache = FALSE,
   results = 'asis'
@@ -49,7 +48,7 @@ require(reshape2)
 require(rCharts)
 
 #get sp500 prices from Yahoo! Finance
-sp500 <- getSymbols("^GSPC", auto.assign = FALSE)
+sp500 <- getSymbols("^GSPC", auto.assign = FALSE, from = "2010-12-31")
 #add 200 day moving average
 sp500$ma <- runMean( sp500[,4], n = 200)
 #get date, close, and 200day mov avg as a data.frame
@@ -106,7 +105,7 @@ will by default create a temp html file (don't worry it will be removed by R whe
 Using [`shiny`](http://www.rstudio.com/shiny/) might make us really proud of ourselves.  To see our chart with `shiny` we can run
 
 ```{r eval = F}
-n1$show(static = F)
+n1$show("server")
 ```
 
 and avoid the creation of a temp file.  `Shiny` will start a web server, and your browser will open with our beautiful chart served by R.
